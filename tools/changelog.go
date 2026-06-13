@@ -9,15 +9,15 @@ import (
 )
 
 type GetJiraIssueChangelogInput struct {
-	IssueKey     string `json:"issueKey" jsonschema:"required,description=Jira issue key"`
-	PageSize     int    `json:"pageSize,omitempty" jsonschema:"description=Jira page size, default 100"`
-	MaxHistories int    `json:"maxHistories,omitempty" jsonschema:"description=Maximum histories to return, default 500"`
+	IssueKey     string `json:"issueKey" jsonschema:"Jira issue key"`
+	PageSize     int    `json:"pageSize,omitempty" jsonschema:"Jira page size, default 100"`
+	MaxHistories int    `json:"maxHistories,omitempty" jsonschema:"Maximum histories to return, default 500"`
 }
 
 type GetJiraIssueChangelogOutput struct {
-	IssueKey string           `json:"issueKey" jsonschema:"description=Jira issue key"`
-	Count    int              `json:"count" jsonschema:"description=Returned changelog history count"`
-	Values   []map[string]any `json:"values" jsonschema:"description=Changelog histories"`
+	IssueKey string           `json:"issueKey" jsonschema:"Jira issue key"`
+	Count    int              `json:"count" jsonschema:"Returned changelog history count"`
+	Values   []map[string]any `json:"values" jsonschema:"Changelog histories"`
 }
 
 func GetJiraIssueChangelogHandler(ctx context.Context, req *mcp.CallToolRequest, input GetJiraIssueChangelogInput) (*mcp.CallToolResult, GetJiraIssueChangelogOutput, error) {

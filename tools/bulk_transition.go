@@ -9,12 +9,12 @@ import (
 )
 
 type BulkTransitionJiraIssuesInput struct {
-	IssueKeys      []string `json:"issueKeys" jsonschema:"required,description=Jira issue keys to transition"`
-	TargetStatus   string   `json:"targetStatus,omitempty" jsonschema:"description=Destination status name to match case-insensitively"`
-	TransitionName string   `json:"transitionName,omitempty" jsonschema:"description=Transition name to match case-insensitively"`
-	Comment        string   `json:"comment,omitempty" jsonschema:"description=Optional plain-text comment to add during the transition"`
-	StopOnError    bool     `json:"stopOnError,omitempty" jsonschema:"description=Stop after the first failed issue"`
-	DryRun         bool     `json:"dryRun,omitempty" jsonschema:"description=Resolve transitions but do not modify Jira"`
+	IssueKeys      []string `json:"issueKeys" jsonschema:"Jira issue keys to transition"`
+	TargetStatus   string   `json:"targetStatus,omitempty" jsonschema:"Destination status name to match case-insensitively"`
+	TransitionName string   `json:"transitionName,omitempty" jsonschema:"Transition name to match case-insensitively"`
+	Comment        string   `json:"comment,omitempty" jsonschema:"Optional plain-text comment to add during the transition"`
+	StopOnError    bool     `json:"stopOnError,omitempty" jsonschema:"Stop after the first failed issue"`
+	DryRun         bool     `json:"dryRun,omitempty" jsonschema:"Resolve transitions but do not modify Jira"`
 }
 
 func BulkTransitionJiraIssuesHandler(ctx context.Context, req *mcp.CallToolRequest, input BulkTransitionJiraIssuesInput) (*mcp.CallToolResult, BulkResult, error) {

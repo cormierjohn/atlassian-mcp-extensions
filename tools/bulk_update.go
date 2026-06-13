@@ -9,12 +9,12 @@ import (
 )
 
 type BulkUpdateJiraIssuesInput struct {
-	IssueKeys             []string       `json:"issueKeys" jsonschema:"required,description=Jira issue keys to update"`
-	Fields                map[string]any `json:"fields,omitempty" jsonschema:"description=Jira fields object to set"`
-	Update                map[string]any `json:"update,omitempty" jsonschema:"description=Jira update operations object"`
-	SuppressNotifications bool           `json:"suppressNotifications,omitempty" jsonschema:"description=Pass notifyUsers=false to Jira"`
-	StopOnError           bool           `json:"stopOnError,omitempty" jsonschema:"description=Stop after the first failed issue"`
-	DryRun                bool           `json:"dryRun,omitempty" jsonschema:"description=Validate inputs but do not modify Jira"`
+	IssueKeys             []string       `json:"issueKeys" jsonschema:"Jira issue keys to update"`
+	Fields                map[string]any `json:"fields,omitempty" jsonschema:"Jira fields object to set"`
+	Update                map[string]any `json:"update,omitempty" jsonschema:"Jira update operations object"`
+	SuppressNotifications bool           `json:"suppressNotifications,omitempty" jsonschema:"Pass notifyUsers=false to Jira"`
+	StopOnError           bool           `json:"stopOnError,omitempty" jsonschema:"Stop after the first failed issue"`
+	DryRun                bool           `json:"dryRun,omitempty" jsonschema:"Validate inputs but do not modify Jira"`
 }
 
 func BulkUpdateJiraIssuesHandler(ctx context.Context, req *mcp.CallToolRequest, input BulkUpdateJiraIssuesInput) (*mcp.CallToolResult, BulkResult, error) {

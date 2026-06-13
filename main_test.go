@@ -6,6 +6,7 @@ import (
 
 	"github.com/cormierjohn/atlassian-mcp-extensions/internal/jira"
 	"github.com/cormierjohn/atlassian-mcp-extensions/tools"
+	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
 
 func TestSelectTransitionByTargetStatus(t *testing.T) {
@@ -40,5 +41,49 @@ func TestTextToADF(t *testing.T) {
 	adf := jira.TextToADF("hello")
 	if adf["type"] != "doc" {
 		t.Fatalf("expected doc node, got %#v", adf["type"])
+	}
+}
+
+func TestMCPToolsList(t *testing.T) {
+	ctx := context.Background()
+	server := mcp.NewServer(&mcp.Implementation{Name: "test-server", Version: "test"}, &mcp.ServerOptions{HasTools: true})
+	tools.RegisterTools(server)
+	client := mcp.NewClient(&mcp.Implementation{Name: "test-client", Version: "test"}, nil)
+	serverTransport, clientTransport := mcp.NewInMemoryTransports()
+
+	serverSession, err := server.Connect(ctx, serverTransport, nil)
+	if err != nil {
+		t.Fatalf("server connect failed: %v", err)
+	}
+	defer serverSession.Close()
+
+	clientSession, err := client.Connect(ctx, clientTransport, nil)
+	if err != nil {
+		t.Fatalf("client connect failed: %v", err)
+	}
+	defer clientSession.Close()
+
+	result, err := clientSession.ListTools(ctx, nil)
+	if err != nil {
+		t.Fatalf("ListTools failed: %v", err)
+	}
+
+	want := map[string]bool{
+		"bulkTransitionJiraIssues":    false,
+		"bulkUpdateJiraIssues":        false,
+		"rankJiraIssues":              false,
+		"removeJiraIssueLink":         false,
+		"getJiraIssueChangelog":       false,
+		"transitionJiraIssueByStatus": false,
+	}
+	for _, tool := range result.Tools {
+		if _, ok := want[tool.Name]; ok {
+			want[tool.Name] = true
+		}
+	}
+	for name, found := range want {
+		if !found {
+			t.Fatalf("tool %s not listed", name)
+		}
 	}
 }

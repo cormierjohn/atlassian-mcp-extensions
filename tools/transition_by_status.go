@@ -9,17 +9,17 @@ import (
 )
 
 type TransitionJiraIssueByStatusInput struct {
-	IssueKey       string `json:"issueKey" jsonschema:"required,description=Jira issue key to transition"`
-	TargetStatus   string `json:"targetStatus,omitempty" jsonschema:"description=Destination status name to match case-insensitively"`
-	TransitionName string `json:"transitionName,omitempty" jsonschema:"description=Transition name to match case-insensitively"`
-	Comment        string `json:"comment,omitempty" jsonschema:"description=Optional plain-text comment to add during the transition"`
-	DryRun         bool   `json:"dryRun,omitempty" jsonschema:"description=Resolve transition but do not modify Jira"`
+	IssueKey       string `json:"issueKey" jsonschema:"Jira issue key to transition"`
+	TargetStatus   string `json:"targetStatus,omitempty" jsonschema:"Destination status name to match case-insensitively"`
+	TransitionName string `json:"transitionName,omitempty" jsonschema:"Transition name to match case-insensitively"`
+	Comment        string `json:"comment,omitempty" jsonschema:"Optional plain-text comment to add during the transition"`
+	DryRun         bool   `json:"dryRun,omitempty" jsonschema:"Resolve transition but do not modify Jira"`
 }
 
 type TransitionJiraIssueByStatusOutput struct {
-	IssueKey     string `json:"issueKey" jsonschema:"description=Jira issue key"`
-	TransitionID string `json:"transitionId" jsonschema:"description=Resolved transition id"`
-	Status       string `json:"status" jsonschema:"description=success or dry_run"`
+	IssueKey     string `json:"issueKey" jsonschema:"Jira issue key"`
+	TransitionID string `json:"transitionId" jsonschema:"Resolved transition id"`
+	Status       string `json:"status" jsonschema:"success or dry_run"`
 }
 
 func TransitionJiraIssueByStatusHandler(ctx context.Context, req *mcp.CallToolRequest, input TransitionJiraIssueByStatusInput) (*mcp.CallToolResult, TransitionJiraIssueByStatusOutput, error) {

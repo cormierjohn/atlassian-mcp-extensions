@@ -9,15 +9,15 @@ import (
 )
 
 type RankJiraIssuesInput struct {
-	IssueKeys       []string `json:"issueKeys" jsonschema:"required,description=Jira issues to rank as a group"`
-	RankBeforeIssue string   `json:"rankBeforeIssue,omitempty" jsonschema:"description=Place issues immediately before this issue"`
-	RankAfterIssue  string   `json:"rankAfterIssue,omitempty" jsonschema:"description=Place issues immediately after this issue"`
-	DryRun          bool     `json:"dryRun,omitempty" jsonschema:"description=Validate inputs but do not modify Jira"`
+	IssueKeys       []string `json:"issueKeys" jsonschema:"Jira issues to rank as a group"`
+	RankBeforeIssue string   `json:"rankBeforeIssue,omitempty" jsonschema:"Place issues immediately before this issue"`
+	RankAfterIssue  string   `json:"rankAfterIssue,omitempty" jsonschema:"Place issues immediately after this issue"`
+	DryRun          bool     `json:"dryRun,omitempty" jsonschema:"Validate inputs but do not modify Jira"`
 }
 
 type RankJiraIssuesOutput struct {
-	Status string   `json:"status" jsonschema:"description=success or dry_run"`
-	Issues []string `json:"issues" jsonschema:"description=Ranked Jira issue keys"`
+	Status string   `json:"status" jsonschema:"success or dry_run"`
+	Issues []string `json:"issues" jsonschema:"Ranked Jira issue keys"`
 }
 
 func RankJiraIssuesHandler(ctx context.Context, req *mcp.CallToolRequest, input RankJiraIssuesInput) (*mcp.CallToolResult, RankJiraIssuesOutput, error) {

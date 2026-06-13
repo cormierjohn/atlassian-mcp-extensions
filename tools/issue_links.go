@@ -9,13 +9,13 @@ import (
 )
 
 type RemoveJiraIssueLinkInput struct {
-	LinkID string `json:"linkId" jsonschema:"required,description=Jira issue link id to remove"`
-	DryRun bool   `json:"dryRun,omitempty" jsonschema:"description=Validate inputs but do not modify Jira"`
+	LinkID string `json:"linkId" jsonschema:"Jira issue link id to remove"`
+	DryRun bool   `json:"dryRun,omitempty" jsonschema:"Validate inputs but do not modify Jira"`
 }
 
 type RemoveJiraIssueLinkOutput struct {
-	LinkID string `json:"linkId" jsonschema:"description=Jira issue link id"`
-	Status string `json:"status" jsonschema:"description=success or dry_run"`
+	LinkID string `json:"linkId" jsonschema:"Jira issue link id"`
+	Status string `json:"status" jsonschema:"success or dry_run"`
 }
 
 func RemoveJiraIssueLinkHandler(ctx context.Context, req *mcp.CallToolRequest, input RemoveJiraIssueLinkInput) (*mcp.CallToolResult, RemoveJiraIssueLinkOutput, error) {
