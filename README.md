@@ -15,7 +15,28 @@ The plugin config also points to the hosted Atlassian Rovo MCP server so clients
 
 ## Authentication
 
-The first version uses Jira API token authentication through environment variables:
+Run setup:
+
+```powershell
+atlassian-mcp-extensions setup
+```
+
+Setup offers two modes:
+
+1. Store credentials in your OS credential store (recommended).
+2. Print environment variable instructions only.
+
+Credential-store mode prompts for:
+
+- Atlassian site URL
+- Atlassian email
+- Atlassian API token
+
+Credentials are stored using the operating system credential store: Windows Credential Manager, macOS Keychain, or Linux Secret Service. They are not written to this repository, `.mcp.json`, or a project config file.
+
+Existing MCP clients and agent sessions must be restarted after setup because already-running processes cannot see newly configured credentials.
+
+For headless environments, you can use environment variables instead. Environment variables are checked before the OS credential store so they can act as explicit process-level overrides:
 
 ```powershell
 $env:ATLASSIAN_SITE_URL = "https://your-site.atlassian.net"
@@ -23,7 +44,7 @@ $env:ATLASSIAN_EMAIL = "you@example.com"
 $env:ATLASSIAN_API_TOKEN = "your-api-token"
 ```
 
-Do not commit tokens to this repository or place them directly in `.mcp.json`. OAuth PKCE with OS keyring storage is a planned auth mode.
+Environment variables must be present in the process that launches the MCP server. Setting them in a terminal does not affect already-running MCP clients. Do not commit tokens to this repository or place them directly in `.mcp.json`. OAuth PKCE is a planned auth mode.
 
 ## Build
 

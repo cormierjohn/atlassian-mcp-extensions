@@ -34,24 +34,54 @@ func (e *HTTPError) Error() string {
 }
 
 func NewFromEnv() (*Client, error) {
-	baseURL := strings.TrimRight(os.Getenv("ATLASSIAN_SITE_URL"), "/")
-	email := os.Getenv("ATLASSIAN_EMAIL")
-	token := os.Getenv("ATLASSIAN_API_TOKEN")
-	if baseURL == "" {
-		return nil, errors.New("ATLASSIAN_SITE_URL is required")
-	}
-	if email == "" {
-		return nil, errors.New("ATLASSIAN_EMAIL is required")
-	}
-	if token == "" {
-		return nil, errors.New("ATLASSIAN_API_TOKEN is required")
+	creds, err := LoadCredentials()
+	if err != nil {
+		return nil, err
 	}
 	return &Client{
-		BaseURL:  baseURL,
-		Email:    email,
-		APIToken: token,
+		BaseURL:  creds.SiteURL,
+		Email:    creds.Email,
+		APIToken: creds.APIToken,
 		HTTP:     &http.Client{Timeout: 60 * time.Second},
 	}, nil
+}
+
+type Credentials struct {
+	SiteURL  string `json:"siteUrl"`
+	Email    string `json:"email"`
+	APIToken string `json:"apiToken"`
+}
+
+func LoadCredentials() (Credentials, error) {
+	creds := Credentials{
+		SiteURL:  strings.TrimRight(os.Getenv("ATLASSIAN_SITE_URL"), "/"),
+		Email:    os.Getenv("ATLASSIAN_EMAIL"),
+		APIToken: os.Getenv("ATLASSIAN_API_TOKEN"),
+	}
+	if creds.SiteURL == "" || creds.Email == "" || creds.APIToken == "" {
+		keyringCreds, err := LoadKeyringCredentials()
+		if err == nil {
+			if creds.SiteURL == "" {
+				creds.SiteURL = keyringCreds.SiteURL
+			}
+			if creds.Email == "" {
+				creds.Email = keyringCreds.Email
+			}
+			if creds.APIToken == "" {
+				creds.APIToken = keyringCreds.APIToken
+			}
+		}
+	}
+	if creds.SiteURL == "" {
+		return Credentials{}, errors.New("ATLASSIAN_SITE_URL is required; run `atlassian-mcp-extensions setup`")
+	}
+	if creds.Email == "" {
+		return Credentials{}, errors.New("ATLASSIAN_EMAIL is required; run `atlassian-mcp-extensions setup`")
+	}
+	if creds.APIToken == "" {
+		return Credentials{}, errors.New("ATLASSIAN_API_TOKEN is required; run `atlassian-mcp-extensions setup`")
+	}
+	return creds, nil
 }
 
 func (c *Client) Do(ctx context.Context, method, path string, query url.Values, payload any, out any) error {
