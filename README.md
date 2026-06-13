@@ -35,6 +35,7 @@ PowerShell:
 ```powershell
 $goBin = "$(go env GOPATH)\bin"
 $env:Path = "$goBin;$env:Path"
+atlassian-mcp-extensions setup
 atlassian-mcp-extensions check-auth
 ```
 
@@ -42,6 +43,7 @@ bash/zsh:
 
 ```bash
 export PATH="$(go env GOPATH)/bin:$PATH"
+atlassian-mcp-extensions setup
 atlassian-mcp-extensions check-auth
 ```
 
@@ -62,6 +64,7 @@ Example Windows PowerShell:
 New-Item -ItemType Directory -Force "$env:USERPROFILE\bin" | Out-Null
 Expand-Archive .\atlassian-mcp-extensions-windows-amd64.zip -DestinationPath "$env:USERPROFILE\bin" -Force
 $env:Path = "$env:USERPROFILE\bin;$env:Path"
+atlassian-mcp-extensions setup
 atlassian-mcp-extensions check-auth
 ```
 
@@ -72,22 +75,23 @@ mkdir -p ~/.local/bin
 tar -xzf atlassian-mcp-extensions-linux-amd64.tar.gz -C ~/.local/bin
 chmod +x ~/.local/bin/atlassian-mcp-extensions
 export PATH="$HOME/.local/bin:$PATH"
+atlassian-mcp-extensions setup
 atlassian-mcp-extensions check-auth
 ```
 
 ### Install the Copilot CLI plugin
 
-After the server binary is on `PATH`:
+After the server binary is on `PATH` and `atlassian-mcp-extensions check-auth` succeeds:
 
 ```powershell
 copilot plugin install cormierjohn/atlassian-mcp-extensions
 ```
 
-Restart any running Copilot CLI session after installing the plugin or changing `PATH`.
+Start a new Copilot CLI session after installing the plugin or changing `PATH`.
 
 ## Authentication
 
-Run setup:
+If you skipped setup during installation, run:
 
 ```powershell
 atlassian-mcp-extensions setup
