@@ -87,6 +87,15 @@ atlassian-mcp-extensions check-auth
 
 After the server binary is on `PATH` and `atlassian-mcp-extensions check-auth` succeeds:
 
+Marketplace-style install:
+
+```powershell
+copilot plugin marketplace add cormierjohn/atlassian-mcp-extensions
+copilot plugin install atlassian-mcp-extensions@atlassian-tools
+```
+
+Direct GitHub install, useful for development while marketplace workflows evolve:
+
 ```powershell
 copilot plugin install cormierjohn/atlassian-mcp-extensions
 ```
@@ -151,6 +160,16 @@ go build -o atlassian-mcp-extensions.exe
   }
 }
 ```
+
+## Plugin manifests
+
+This repository includes manifests for the major local-agent clients:
+
+- Copilot CLI: `.github/plugin/marketplace.json` and `.github/plugin/plugin.json`
+- Claude-style plugin layout: `.claude-plugin/marketplace.json` and `.claude-plugin/plugin.json`
+- Cursor-style plugin layout: `.cursor-plugin/marketplace.json` and `.cursor-plugin/plugin.json`
+
+All manifests point back to the same root `.mcp.json`, so the server binary still needs to be installed locally and available on `PATH`.
 
 ## Development
 

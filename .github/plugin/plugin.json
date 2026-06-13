@@ -1,6 +1,5 @@
 {
   "name": "atlassian-mcp-extensions",
-  "displayName": "Atlassian MCP Extensions",
   "description": "Community extensions for Atlassian MCP: Jira bulk operations, ranking, changelog, and link management tools.",
   "version": "0.1.0",
   "author": {
@@ -8,6 +7,7 @@
   },
   "repository": "https://github.com/cormierjohn/atlassian-mcp-extensions",
   "license": "MIT",
-  "keywords": ["atlassian", "mcp", "jira", "jira-cloud", "cursor"],
-  "mcpServers": "./.mcp.json"
+  "keywords": ["atlassian", "mcp", "jira", "jira-cloud", "copilot"],
+  "mcpServers": ".mcp.json",
+  "skills": ["./skills/jira-bulk-operations"]
 }

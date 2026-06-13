@@ -1,0 +1,21 @@
+{
+  "name": "atlassian-tools",
+  "metadata": {
+    "description": "Community Atlassian MCP plugins for Jira automation.",
+    "version": "1.0.0"
+  },
+  "owner": {
+    "name": "Atlassian MCP Extensions Community"
+  },
+  "plugins": [
+    {
+      "name": "atlassian-mcp-extensions",
+      "source": ".",
+      "description": "Community extensions for Atlassian MCP: Jira bulk operations, ranking, changelog, and link management tools.",
+      "version": "0.1.0",
+      "repository": "https://github.com/cormierjohn/atlassian-mcp-extensions",
+      "license": "MIT",
+      "keywords": ["atlassian", "mcp", "jira", "jira-cloud", "copilot"]
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "name": "atlassian-tools",
+  "owner": {
+    "name": "Atlassian MCP Extensions Community"
+  },
+  "plugins": [
+    {
+      "name": "atlassian-mcp-extensions",
+      "source": ".",
+      "description": "Community extensions for Atlassian MCP: Jira bulk operations, ranking, changelog, and link management tools.",
+      "version": "0.1.0"
+    }
+  ]
+}
