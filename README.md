@@ -51,6 +51,10 @@ atlassian-mcp-extensions check-auth
 
 Download the matching archive from the GitHub Releases page for your operating system:
 
+```text
+https://github.com/cormierjohn/atlassian-mcp-extensions/releases
+```
+
 - Windows: `atlassian-mcp-extensions-windows-amd64.zip`
 - macOS Apple Silicon: `atlassian-mcp-extensions-darwin-arm64.tar.gz`
 - macOS Intel: `atlassian-mcp-extensions-darwin-amd64.tar.gz`
