@@ -158,6 +158,30 @@ Run locally over stdio:
 go run .
 ```
 
+## Publishing releases
+
+This repository has a GitHub Actions release workflow that can do two different things:
+
+- **Manual workflow run:** builds binaries and attaches them as artifacts to that workflow run. This is useful for testing the build, but it does not create a GitHub Release page.
+- **Version tag push:** builds binaries and publishes them to the GitHub Releases page for users to download.
+
+To publish a real release:
+
+```powershell
+git switch main
+git pull
+git tag v0.1.0
+git push origin v0.1.0
+```
+
+Use the next semantic version tag for future releases, for example `v0.1.1` or `v0.2.0`.
+
+After the workflow finishes, release downloads are available at:
+
+```text
+https://github.com/cormierjohn/atlassian-mcp-extensions/releases
+```
+
 ## License
 
 MIT
